@@ -1,9 +1,14 @@
 pipeline {
 	// agent {docker {image 'ahmadsalih7/my_flask_image:0.0.0'} }
 	agent any
+	environment {
+		dockerHome = tool 'myDocker'
+		PATH = "dockerHome/bin:$PATH"
+	}
 	stages {
 		stage('Build'){
 			steps {
+				sh "docker version"
 				echo "Build"
 				echo " PATH $PATH"
 				echo "BUILD_NUMBER $env.BUILD_NUMBER"
