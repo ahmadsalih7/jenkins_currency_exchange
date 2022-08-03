@@ -1,10 +1,17 @@
 pipeline {
-	agent {docker {image 'ahmadsalih7/my_flask_image:0.0.0'} }
+	// agent {docker {image 'ahmadsalih7/my_flask_image:0.0.0'} }
+	agent any
 	stages {
 		stage('Build'){
 			steps {
-				sh 'flask --version'
 				echo "Build"
+				echo " PATH $PATH"
+				echo "BUILD_NUMBER $env.BUILD_NUMBER"
+				echo "BUILD_TAG $env.BUILD_TAG"
+				echo "BUILD_ID $env.BUILD_ID"
+				echo "BUILD_URL $env.BUILD_URL"
+				echo "JOB_NAME $env.JOB_NAME"
+
 			}
 		}
 		stage('Test'){
