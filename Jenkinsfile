@@ -6,7 +6,7 @@ pipeline {
 		PATH = "dockerHome/bin:$PATH"
 	}
 	stages {
-		stage('Build'){
+		stage('checkout'){
 			steps {
 				sh "docker version"
 				echo "Build"
@@ -19,17 +19,24 @@ pipeline {
 
 			}
 		}
-		stage('Test'){
+		stage('Build Docker Image') {
 			steps {
-				echo "Test"
+				script {
+					dockerImage = docker.build("ahmadsalih7/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+
 			}
 		}
-		stage('Integration Test'){
+		stage('Push Docker Image') {
 			steps {
-				echo "Integration Test"
+				script {
+					docker.withRegistry('', 'dockerhub') {
+						dockerImage.push();
+						dockerImage.push('latest');
+					}
+				}
 			}
 		}
-	}
 	post {
 		always {
 			echo "I always run"
