@@ -1,8 +1,9 @@
 pipeline {
-	agent any
+	agent {docker {image ahmadsalih7/my_flask_image} }
 	stages {
 		stage('Build'){
 			steps {
+				sh 'flask --version'
 				echo "Build"
 			}
 		}
