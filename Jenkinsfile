@@ -1,5 +1,5 @@
 pipeline {
-	agent {docker {image ahmadsalih7/my_flask_image} }
+	agent {docker {image 'ahmadsalih7/my_flask_image:0.0.0'} }
 	stages {
 		stage('Build'){
 			steps {
